@@ -11,13 +11,13 @@ import (
 	"encoding/json"
 )
 
-type NginxLog struct {
+type nginxLog struct {
 	Time         string `json:"time"`
 	Host         string `json:"host"`
 	Forwardedfor string `json:"forwardedfor"`
 	Req          string `json:"req"`
 	Method       string `json:"method"`
-	Uri          string `json:"uri"`
+	URI          string `json:"uri"`
 	Status       string `json:"status"`
 	Size         string `json:"size"`
 	Referer      string `json:"referer"`
@@ -72,13 +72,13 @@ func main() {
 			}
 			logmap[val[0]] = val[1]
 		}
-		log := NginxLog{
+		log := nginxLog{
 			Time:         logmap["time"],
 			Host:         logmap["host"],
 			Forwardedfor: logmap["forwardedfor"],
 			Req:          logmap["req"],
 			Method:       logmap["method"],
-			Uri:          logmap["uri"],
+			URI:          logmap["uri"],
 			Status:       logmap["status"],
 			Size:         logmap["size"],
 			Referer:      logmap["referer"],
@@ -95,7 +95,7 @@ func main() {
 		}
 
 		//fmt.Println(string(data))
-		postJson(os.Args[2], data)
+		postJSON(os.Args[2], data)
 
 		// time.Sleep(10 * time.Millisecond)
 		// b := new(bytes.Buffer)
@@ -111,7 +111,7 @@ func main() {
 	}
 }
 
-func postJson(url string, data []byte) {
+func postJSON(url string, data []byte) {
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer(data))
 	if err != nil {
 		fmt.Println(err)
