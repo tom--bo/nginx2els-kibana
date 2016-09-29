@@ -52,96 +52,49 @@ func main() {
 		// fmt.Println(scanner.Text())
 		line := scanner.Text()
 		items := strings.Split(line, "\t")
-		var log NginxLog
+        logmap:=make(map[string]string)
+        checkEmptyValue:=map[string]string{
+            "time":"null",
+            "host":"null",
+            "forwardedfor":"null",
+            "req":"null",
+            "size":"null",
+            "reqtime":"0",
+            "runtime":"0",
+            "apptime":"0",
+        }
 		for _, item := range items {
             val := strings.SplitN(item, ":", 2)
-            // fmt.Println(val[0] + ": " + val[1])
-			switch {
-			case val[0] == "time":
-                if val[1] == "-" {
-                    log.Time = "null"
-                    continue
+            if fill, ok:=checkEmptyValue[val[0]];ok{
+                if val[1]=="-"{
+                    val[1]=fill
                 }
-				log.Time = val[1]
-				continue
-			case val[0] == "host":
-                if val[1] == "-" {
-                    log.Host = "null"
-                    continue
-                }
-				log.Host = val[1]
-				continue
-			case val[0] == "forwardedfor":
-                if val[1] == "-" {
-                    log.Forwardedfor = "null"
-                    continue
-                }
-				log.Forwardedfor = val[1]
-				continue
-			case val[0] == "req":
-                if val[1] == "-" {
-                    log.Req = "null"
-                    continue
-                }
-				log.Req = val[1]
-				continue
-			case val[0] == "method":
-				log.Method = val[1]
-				continue
-			case val[0] == "uri":
-				log.Uri = val[1]
-				continue
-			case val[0] == "status":
-				log.Status = val[1]
-				continue
-			case val[0] == "size":
-                if val[1] == "-" {
-                    log.Size = "null"
-                    continue
-                }
-				log.Size = val[1]
-				continue
-			case val[0] == "referer":
-				log.Referer = val[1]
-				continue
-			case val[0] == "ua":
-				log.UA = val[1]
-				continue
-			case val[0] == "reqtime":
-                if val[1] == "-" {
-                    log.Reqtime = "0"
-                    continue
-                }
-				log.Reqtime = val[1]
-				continue
-			case val[0] == "runtime":
-                if val[1] == "-" {
-                    log.Runtime = "0"
-                    continue
-                }
-				log.Runtime = val[1]
-				continue
-			case val[0] == "apptime":
-                if val[1] == "-" {
-                    log.Apptime = "0"
-                    continue
-                }
-				log.Apptime = val[1]
-				continue
-			case val[0] == "cache":
-				log.Cache = val[1]
-				continue
-			case val[0] == "vhost":
-				log.Vhost = val[1]
-				continue
-			}
+            }
+            logmap[val[0]]=val[1]
 		}
+        log:=NginxLog{
+            Time    : logmap["time"],
+            Host    : logmap["host"],
+            Forwardedfor : logmap["forwardedfor"],
+            Req     : logmap["req"],
+            Method  : logmap["method"],
+            Uri     : logmap["uri"],
+            Status  : logmap["status"],
+            Size    : logmap["size"],
+            Referer : logmap["referer"],
+            UA      : logmap["ua"],
+            Reqtime : logmap["reqtime"],
+            Runtime : logmap["runtime"],
+            Apptime : logmap["apptime"],
+            Cache   : logmap["cache"],
+            Vhost   : logmap["vhost"],
+        }
 		data, err := json.Marshal(log)
 		if err != nil {
 			fmt.Print("JSON marshaling failed: %s", err)
 		}
 
-        // fmt.Println(log)
+        //fmt.Println(string(data))
         postJson(os.Args[2], data)
 
         // time.Sleep(10 * time.Millisecond)
