@@ -43,3 +43,6 @@ log_format ltsv
 	;
 ```
 
+## Kibana
+Dashbordから Settings -> Objects -> import で export_kibana.jsonを選択して読み込む
+
