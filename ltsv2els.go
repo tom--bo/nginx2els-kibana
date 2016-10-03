@@ -7,7 +7,6 @@ import (
 	"net/http"
 	"os"
 	"strings"
-	//    "strconv"
 	"encoding/json"
 )
 
@@ -32,8 +31,6 @@ type nginxLog struct {
 func main() {
 	var fp *os.File
 	var err error
-	//fmt.Println(os.Args[1])
-	//fmt.Println(os.Args[2])
 
 	if len(os.Args) < 2 {
 		fp = os.Stdin
@@ -42,14 +39,12 @@ func main() {
 		fp, err = os.Open(os.Args[1])
 		if err != nil {
 			panic(err)
-
 		}
 		defer fp.Close()
 	}
 
 	scanner := bufio.NewScanner(fp)
 	for scanner.Scan() {
-		// fmt.Println(scanner.Text())
 		line := scanner.Text()
 		items := strings.Split(line, "\t")
 		logmap := make(map[string]string)
@@ -94,17 +89,7 @@ func main() {
 			fmt.Print("JSON marshaling failed: %s", err)
 		}
 
-		//fmt.Println(string(data))
 		postJSON(os.Args[2], data)
-
-		// time.Sleep(10 * time.Millisecond)
-		// b := new(bytes.Buffer)
-		// json.NewEncoder(b).Encode(log)
-		// _, err2 := http.Post(os.Args[2], "application/json; charset=utf-8", log)
-		// r, err2 := http.Post(os.Args[2], "application/json; charset=utf-8",  bytes.NewBuffer(data))
-		// if err2 != nil {
-		// 	fmt.Println("Post failed: %s", err2)
-		// }
 	}
 	if err := scanner.Err(); err != nil {
 		panic(err)
@@ -117,8 +102,6 @@ func postJSON(url string, data []byte) {
 		fmt.Println(err)
 		panic(err)
 	}
-	// req.Header.Set("Content-Length", strconv.Itoa(len(data)))
-	// req.Header.Set("Content-Length", strconv.Itoa(300))
 	req.Header.Set("Content-Type", "application/json")
 
 	client := http.Client{}
@@ -128,7 +111,5 @@ func postJSON(url string, data []byte) {
 		panic(err2)
 	}
 
-	// fmt.Println(resp)
-	// fmt.Println(resp.Body)
 	defer resp.Body.Close()
 }
