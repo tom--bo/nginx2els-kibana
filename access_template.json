@@ -51,6 +51,14 @@
       },
       "vhost" : {
         "type" : "ip"
+      },
+      "handler" : {
+        "type" : "string",
+        "index" : "not_analyzed"
+      },
+      "protocol" : {
+        "type" : "string",
+        "index" : "not_analyzed"
       }
     }
   }
