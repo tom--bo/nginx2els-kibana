@@ -7,6 +7,7 @@
 curl -XPOST 'localhost:9200/isucon-3' -d @elastic_template.json
 
 # デフォルトのテンプレートでindex作成 (index名isucon-*)
+curl -XPOST 'localhost:9200/_template/isucon' -d @set_template.json #templateの作成
 curl -XPOST 'localhost:9200/isucon-3'
 
 # テスト的にサンプルレコードを投げる
