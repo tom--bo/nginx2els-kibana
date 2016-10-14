@@ -6,6 +6,9 @@
 # template指定でindex, typeの作成
 curl -XPOST 'localhost:9200/isucon-3' -d @elastic_template.json
 
+# デフォルトのテンプレートでindex作成 (index名isucon-*)
+curl -XPOST 'localhost:9200/isucon-3'
+
 # テスト的にサンプルレコードを投げる
 curl -XPOST 127.0.0.1:9200/isucon-3/access -d @test.json
 ``````
