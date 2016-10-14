@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 	"strings"
+	"time"
 )
 
 type nginxLog struct {
@@ -69,7 +70,7 @@ func main() {
 			}
 			logmap[val[0]] = val[1]
 		}
-		tmpstr := strings.Split(logmap["uri"], " ")
+		tmpstr := strings.Split(logmap["req"], " ")
 		logmap["protocol"] = tmpstr[2]
 		logmap["handler"] = makeHandlerPart(tmpstr[1])
 		log := nginxLog{
@@ -97,6 +98,7 @@ func main() {
 		}
 
 		postJSON(os.Args[2], data)
+		time.Sleep(10 * time.Millisecond)
 	}
 	if err := scanner.Err(); err != nil {
 		panic(err)
@@ -122,8 +124,10 @@ func postJSON(url string, data []byte) {
 }
 
 func makeHandlerPart(uristr string) string {
-	tmp := strings.Split(uristr, "/")
-	if len(tmp) < 3 {
+	tmp := strings.Split(uristr, "?")
+	tmp = strings.Split(tmp[0], "#")
+	tmp = strings.Split(tmp[0], "/")
+	if len(tmp) < 2 {
 		return uristr
 	}
 	return "/" + tmp[1]
