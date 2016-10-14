@@ -3,11 +3,11 @@ package main
 import (
 	"bufio"
 	"bytes"
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"os"
 	"strings"
-	"encoding/json"
 )
 
 type nginxLog struct {
@@ -26,6 +26,8 @@ type nginxLog struct {
 	Apptime      string `json:"apptime"`
 	Cache        string `json:"cache"`
 	Vhost        string `json:"vhost"`
+	Protocol     string `json:"protocol"`
+	Handler      string `json:"handler"`
 }
 
 func main() {
@@ -67,6 +69,9 @@ func main() {
 			}
 			logmap[val[0]] = val[1]
 		}
+		tmpstr := strings.Split(logmap["uri"], " ")
+		logmap["protocol"] = tmpstr[2]
+		logmap["handler"] = makeHandlerPart(tmpstr[1])
 		log := nginxLog{
 			Time:         logmap["time"],
 			Host:         logmap["host"],
@@ -83,6 +88,8 @@ func main() {
 			Apptime:      logmap["apptime"],
 			Cache:        logmap["cache"],
 			Vhost:        logmap["vhost"],
+			Protocol:     logmap["protocol"],
+			Handler:      logmap["handler"],
 		}
 		data, err := json.Marshal(log)
 		if err != nil {
@@ -112,4 +119,12 @@ func postJSON(url string, data []byte) {
 	}
 
 	defer resp.Body.Close()
+}
+
+func makeHandlerPart(uristr string) string {
+	tmp := strings.Split(uristr, "/")
+	if len(tmp) < 3 {
+		return uristr
+	}
+	return "/" + tmp[1]
 }
