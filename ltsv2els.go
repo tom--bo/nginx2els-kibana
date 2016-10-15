@@ -127,8 +127,10 @@ func makeHandlerPart(uristr string) string {
 	tmp := strings.Split(uristr, "?")
 	tmp = strings.Split(tmp[0], "#")
 	tmp = strings.Split(tmp[0], "/")
-	if len(tmp) < 2 {
+	if len(tmp) < 4 {
 		return uristr
+	} else if len(tmp) > 5 {
+		return "/" + tmp[1] + "/" + tmp[3] + "/" + tmp[5]
 	}
-	return "/" + tmp[1]
+	return "/" + tmp[1] + "/" + tmp[3]
 }
