@@ -6,7 +6,7 @@
       "title": "nginx",
       "hits": 0,
       "description": "",
-      "panelsJSON": "[{\"col\":9,\"id\":\"method%\",\"panelIndex\":1,\"row\":5,\"size_x\":4,\"size_y\":3,\"type\":\"visualization\"},{\"col\":1,\"id\":\"histogram\",\"panelIndex\":2,\"row\":5,\"size_x\":8,\"size_y\":5,\"type\":\"visualization\"},{\"col\":9,\"id\":\"count\",\"panelIndex\":3,\"row\":8,\"size_x\":4,\"size_y\":2,\"type\":\"visualization\"},{\"col\":9,\"id\":\"req-%\",\"panelIndex\":6,\"row\":10,\"size_x\":4,\"size_y\":5,\"type\":\"visualization\"},{\"col\":1,\"id\":\"his-filter\",\"panelIndex\":7,\"row\":10,\"size_x\":8,\"size_y\":5,\"type\":\"visualization\"},{\"col\":1,\"id\":\"req-time\",\"panelIndex\":8,\"row\":15,\"size_x\":8,\"size_y\":4,\"type\":\"visualization\"},{\"col\":9,\"id\":\"reqtime-%\",\"panelIndex\":9,\"row\":15,\"size_x\":4,\"size_y\":4,\"type\":\"visualization\"},{\"col\":1,\"id\":\"reqtime-table\",\"panelIndex\":14,\"row\":1,\"size_x\":12,\"size_y\":4,\"type\":\"visualization\"}]",
+      "panelsJSON": "[{\"col\":9,\"id\":\"method%\",\"panelIndex\":1,\"row\":5,\"size_x\":4,\"size_y\":3,\"type\":\"visualization\"},{\"col\":1,\"id\":\"histogram\",\"panelIndex\":2,\"row\":5,\"size_x\":8,\"size_y\":5,\"type\":\"visualization\"},{\"col\":9,\"id\":\"count\",\"panelIndex\":3,\"row\":8,\"size_x\":4,\"size_y\":2,\"type\":\"visualization\"},{\"col\":9,\"id\":\"req-%\",\"panelIndex\":6,\"row\":10,\"size_x\":4,\"size_y\":5,\"type\":\"visualization\"},{\"col\":1,\"id\":\"his-filter\",\"panelIndex\":7,\"row\":10,\"size_x\":8,\"size_y\":5,\"type\":\"visualization\"},{\"col\":1,\"id\":\"req-time\",\"panelIndex\":8,\"row\":15,\"size_x\":8,\"size_y\":4,\"type\":\"visualization\"},{\"col\":9,\"id\":\"reqtime-%\",\"panelIndex\":9,\"row\":15,\"size_x\":4,\"size_y\":4,\"type\":\"visualization\"},{\"col\":1,\"id\":\"reqtime-table\",\"panelIndex\":14,\"row\":1,\"size_x\":8,\"size_y\":4,\"type\":\"visualization\"},{\"id\":\"vhost\",\"type\":\"visualization\",\"panelIndex\":15,\"size_x\":4,\"size_y\":4,\"col\":9,\"row\":1}]",
       "optionsJSON": "{\"darkTheme\":true}",
       "uiStateJSON": "{}",
       "version": 1,
@@ -205,6 +205,20 @@
       "title": "method%",
       "visState": "{\"title\":\"method%\",\"type\":\"pie\",\"params\":{\"shareYAxis\":true,\"addTooltip\":true,\"addLegend\":true,\"isDonut\":false},\"aggs\":[{\"id\":\"1\",\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"method\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"1\"}},{\"id\":\"3\",\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"status\",\"size\":10,\"order\":\"desc\",\"orderBy\":\"1\"}}],\"listeners\":{}}",
       "uiStateJSON": "{\"vis\":{\"legendOpen\":true}}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"isucon-*\",\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}},\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "vhost",
+    "_type": "visualization",
+    "_source": {
+      "title": "vhost",
+      "visState": "{\"title\":\"vhost\",\"type\":\"pie\",\"params\":{\"shareYAxis\":true,\"addTooltip\":true,\"addLegend\":true,\"isDonut\":false},\"aggs\":[{\"id\":\"1\",\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"vhost\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"1\"}},{\"id\":\"3\",\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"protocol\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"1\"}},{\"id\":\"4\",\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"method\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"1\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{}",
       "description": "",
       "version": 1,
       "kibanaSavedObjectMeta": {
