@@ -1,0 +1,19 @@
+[
+  {
+    "_id": "nginx",
+    "_type": "dashboard",
+    "_source": {
+      "title": "nginx",
+      "hits": 0,
+      "description": "",
+      "panelsJSON": "[{\"col\":9,\"id\":\"method%\",\"panelIndex\":1,\"row\":9,\"size_x\":4,\"size_y\":3,\"type\":\"visualization\"},{\"col\":1,\"id\":\"histogram\",\"panelIndex\":2,\"row\":9,\"size_x\":8,\"size_y\":5,\"type\":\"visualization\"},{\"col\":9,\"id\":\"count\",\"panelIndex\":3,\"row\":12,\"size_x\":4,\"size_y\":2,\"type\":\"visualization\"},{\"col\":9,\"id\":\"req-%\",\"panelIndex\":6,\"row\":14,\"size_x\":4,\"size_y\":5,\"type\":\"visualization\"},{\"col\":1,\"id\":\"his-filter\",\"panelIndex\":7,\"row\":14,\"size_x\":8,\"size_y\":5,\"type\":\"visualization\"},{\"col\":1,\"id\":\"req-time\",\"panelIndex\":8,\"row\":19,\"size_x\":8,\"size_y\":4,\"type\":\"visualization\"},{\"col\":9,\"id\":\"reqtime-%\",\"panelIndex\":9,\"row\":19,\"size_x\":4,\"size_y\":4,\"type\":\"visualization\"},{\"col\":1,\"id\":\"reqtime-table\",\"panelIndex\":14,\"row\":5,\"size_x\":8,\"size_y\":4,\"type\":\"visualization\"},{\"id\":\"vhost\",\"type\":\"visualization\",\"panelIndex\":15,\"size_x\":4,\"size_y\":4,\"col\":9,\"row\":5},{\"id\":\"all_uri\",\"type\":\"visualization\",\"panelIndex\":16,\"size_x\":12,\"size_y\":4,\"col\":1,\"row\":1}]",
+      "optionsJSON": "{\"darkTheme\":true}",
+      "uiStateJSON": "{}",
+      "version": 1,
+      "timeRestore": false,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[{\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}}}]}"
+      }
+    }
+  }
+]
