@@ -3,11 +3,12 @@ package main
 import (
 	"bufio"
 	"bytes"
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"os"
 	"strings"
-	"encoding/json"
+	"time"
 )
 
 type nginxLog struct {
@@ -26,6 +27,8 @@ type nginxLog struct {
 	Apptime      string `json:"apptime"`
 	Cache        string `json:"cache"`
 	Vhost        string `json:"vhost"`
+	Protocol     string `json:"protocol"`
+	Handler      string `json:"handler"`
     UpstreamAddr         string `json:"upstream_addr"`
     UpstreamResponseTime string `json:"upstream_response_time"`
     CacheControl        string `json:"cache_control"`
@@ -78,6 +81,9 @@ func main() {
 			}
 			logmap[val[0]] = val[1]
 		}
+		tmpstr := strings.Split(logmap["req"], " ")
+		logmap["protocol"] = tmpstr[2]
+		logmap["handler"] = makeHandlerPart(tmpstr[1])
 		log := nginxLog{
 			Time:         logmap["time"],
 			Host:         logmap["host"],
@@ -101,14 +107,16 @@ func main() {
             AcceptEncoding: logmap["accept_encoding"],
             Cookie:       logmap["cookie"],
             Upgrade:      logmap["upgrade"],
-        }
-
+			Protocol:     logmap["protocol"],
+			Handler:      logmap["handler"],
+		}
 		data, err := json.Marshal(log)
 		if err != nil {
 			fmt.Print("JSON marshaling failed: %s", err)
 		}
 
 		postJSON(os.Args[2], data)
+		time.Sleep(10 * time.Millisecond)
 	}
 	if err := scanner.Err(); err != nil {
 		panic(err)
@@ -131,4 +139,14 @@ func postJSON(url string, data []byte) {
 	}
 
 	defer resp.Body.Close()
+}
+
+func makeHandlerPart(uristr string) string {
+	tmp := strings.Split(uristr, "?")
+	tmp = strings.Split(tmp[0], "#")
+	tmp = strings.Split(tmp[0], "/")
+	if len(tmp) < 2 {
+		return uristr
+	}
+	return "/" + tmp[1]
 }
