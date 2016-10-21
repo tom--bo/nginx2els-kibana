@@ -26,6 +26,13 @@ type nginxLog struct {
 	Apptime      string `json:"apptime"`
 	Cache        string `json:"cache"`
 	Vhost        string `json:"vhost"`
+    UpstreamAddr         string `json:"upstream_addr"`
+    UpstreamResponseTime string `json:"upstream_response_time"`
+    CacheControl        string `json:"cache_control"`
+    Connection           string `json:"connection"`
+    AcceptEncoding      string `json:"accept_encoding"`
+    Cookie               string `json:"cookie"`
+    Upgrade              string `json:"upgrade"`
 }
 
 func main() {
@@ -54,9 +61,13 @@ func main() {
 			"forwardedfor": "null",
 			"req":          "null",
 			"size":         "null",
+            "cookie":       "null",
+            "connection":   "null",
+            "update":       "null",
 			"reqtime":      "0",
 			"runtime":      "0",
 			"apptime":      "0",
+			"upstream_response_time": "0",
 		}
 		for _, item := range items {
 			val := strings.SplitN(item, ":", 2)
@@ -83,7 +94,15 @@ func main() {
 			Apptime:      logmap["apptime"],
 			Cache:        logmap["cache"],
 			Vhost:        logmap["vhost"],
-		}
+            UpstreamAddr: logmap["upstream_addr"],
+            UpstreamResponseTime: logmap["upstream_response_time"],
+            CacheControl: logmap["cache_control"],
+            Connection:   logmap["connection"],
+            AcceptEncoding: logmap["accept_encoding"],
+            Cookie:       logmap["cookie"],
+            Upgrade:      logmap["upgrade"],
+        }
+
 		data, err := json.Marshal(log)
 		if err != nil {
 			fmt.Print("JSON marshaling failed: %s", err)
