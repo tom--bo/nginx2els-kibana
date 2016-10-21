@@ -66,6 +66,33 @@
       "referer" : {
         "type" : "string",
         "index" : "not_analyzed"
+      },
+      "cache_control" : {
+        "type" : "string",
+        "index" : "not_analyzed"
+      },
+      "connection" : {
+        "type" : "string",
+        "index" : "not_analyzed"
+      },
+      "accept-encoding" : {
+        "type" : "string",
+        "index" : "not_analyzed"
+      },
+      "cookie" : {
+        "type" : "string",
+        "index" : "not_analyzed"
+      },
+      "upgrade" : {
+        "type" : "string",
+        "index" : "not_analyzed"
+      },
+      "upstream_addr" : {
+        "type" : "string",
+        "index" : "not_analyzed"
+      },
+      "upstream_response_time" : {
+        "type" : "double"
       }
     }
   }
