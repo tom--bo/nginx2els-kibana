@@ -42,9 +42,16 @@ log_format ltsv
 	"\treqtime:$request_time"
 	"\truntime:$upstream_http_x_runtime"
 	"\tapptime:$upstream_response_time"
-	"\tcache:$upstream_http_x_cache"
-	"\tvhost:$host"
-	;
+    "\tcache:$upstream_http_x_cache"
+    "\tvhost:$host"
+    "\tupstream_addr:$upstream_addr"
+    "\tupstream_time:$upstream_response_time"
+    "\tcache_control:$http_cache_control"
+    "\tconnection:$http_connection"
+    "\taccept_encoding:$http_accept_encoding"
+    "\tcookie:$http_cookie"
+    "\tupdate:$http_update"
+    ;
 ```
 
 ## Kibana
